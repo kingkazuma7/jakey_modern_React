@@ -5,17 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JavaScript TODO</title>
   <script defer src="main.js"></script>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div>
+  <div class="head">
     <input placeholder="TODOを入力">
     <button>追加</button>
   </div>
-  <div>
+  <div class="border">
     <p>未完了のTODO</p>
     <ul>
       <li>
-        <div>
+        <div class="list-row">
+          <p>TODOです</p>
+          <button>完了</button>
+          <button>削除</button>
+        </div>
+      </li>
+      <li>
+        <div class="list-row">
           <p>TODOです</p>
           <button>完了</button>
           <button>削除</button>
@@ -23,11 +31,17 @@
       </li>
     </ul>
   </div>
-  <div>
+  <div class="border">
     <p>完了のTODO</p>
     <ul>
       <li>
-        <div>
+        <div class="list-row">
+          <p>TODOでした</p>
+          <button>戻す</button>
+        </div>
+      </li>
+      <li>
+        <div class="list-row">
           <p>TODOでした</p>
           <button>戻す</button>
         </div>

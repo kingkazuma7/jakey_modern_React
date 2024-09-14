@@ -1,0 +1,16 @@
+.head {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: aquamarine;
+}
+.border {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+}
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
