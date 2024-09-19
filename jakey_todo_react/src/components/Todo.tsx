@@ -14,6 +14,12 @@ export const Todo = () => {
     setTodoInput("");
   }
   
+  const deleteTodo = (index: number) => {
+    const newTodos = [...inCompleteTodos];
+    newTodos.splice(index, 1);
+    setInCompleteTodos(newTodos);
+  }
+
   return (
     <React.Fragment>
       <div className="input-area">
@@ -23,13 +29,13 @@ export const Todo = () => {
       <div className="incomplete-area">
         <p className='title'>未完了のTODO</p>
         <ul>
-          {inCompleteTodos.map((todo) => {
+          {inCompleteTodos.map((todo, index) => {
             return (
               <li key={todo}>
                 <div className="list-row">
                   <p className='todo-item'>{todo}</p>
                   <button>完了</button>
-                  <button>削除</button>
+                  <button onClick={() => deleteTodo(index)}>削除</button>
                 </div>
               </li>
             );
