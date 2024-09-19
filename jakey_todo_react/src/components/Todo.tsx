@@ -1,14 +1,24 @@
 import React, { useState } from 'react'
 
 export const Todo = () => {
-  const [inCompleteTodos, setInCompleteTodos] = useState(["TODOです1", "TODOです2"]); // 未完了TODOアイテム配列
-  const [completeTodos, setCompleteTodos] = useState(["TODOでした1", "TODOでした2"])// 完了TODOアイテム
+  const [todoInput, setTodoInput] = useState<string>('')// input
+  const [inCompleteTodos, setInCompleteTodos] = useState<Array<string>>(["TODOです1", "TODOです2"]); // 未完了TODOアイテム配列
+  const [completeTodos, setCompleteTodos] = useState<Array<string>>(["TODOでした1", "TODOでした2"])// 完了TODOアイテム
+  
+  const handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    setTodoInput(e.target.value);
+  }
+  const addTodo = () => {
+    if (todoInput === "") return;
+    setInCompleteTodos([...inCompleteTodos, todoInput]);
+    setTodoInput("");
+  }
   
   return (
     <React.Fragment>
       <div className="input-area">
-        <input placeholder="TODOを入力" />
-        <button>追加</button>
+        <input placeholder="TODOを入力" onChange={handleInputChange} />
+        <button onClick={addTodo}>追加</button>
       </div>
       <div className="incomplete-area">
         <p className='title'>未完了のTODO</p>
