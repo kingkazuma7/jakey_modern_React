@@ -19,6 +19,20 @@ export const Todo = () => {
     newTodos.splice(index, 1);
     setInCompleteTodos(newTodos);
   }
+  
+  const completeTodo = (index: number) => {
+    // inCompleteTodosのコピーを作成
+    const temporaryTodos = [...inCompleteTodos];
+    // 指定されたインデックスのタスクを削除
+    const [removedTodo] = temporaryTodos.splice(index, 1); 
+    // 削除されたタスクをcompleteTodosに追加
+    const updatedCompleteTodos = [...completeTodos, removedTodo];
+  
+    // 削除されたタスクを元の配列から削除
+    setInCompleteTodos(temporaryTodos); 
+    // 完了したタスクを新しい配列に追加
+    setCompleteTodos(updatedCompleteTodos);
+  };
 
   return (
     <React.Fragment>
@@ -34,7 +48,7 @@ export const Todo = () => {
               <li key={todo}>
                 <div className="list-row">
                   <p className='todo-item'>{todo}</p>
-                  <button>完了</button>
+                  <button onClick={() => completeTodo(index)}>完了</button>
                   <button onClick={() => deleteTodo(index)}>削除</button>
                 </div>
               </li>
@@ -45,7 +59,7 @@ export const Todo = () => {
       <div className='complete-area'>
         <p className='title'>完了のTODO</p>
         <ul>
-          {completeTodos.map((todo) => (
+          {completeTodos.map((todo, index) => (
             <li key={todo}>
               <div className="list-row">
               <p className='todo-item'>{todo}</p>
