@@ -52,6 +52,7 @@ export const Todo = () => {
         todoText={todoText}
         handleInputChange={handleInputChange}
         addTask={addTask}
+        placeholder={"TODOを入力"}
       />
       <IncompleteTasks
         todos={incompleteTasks}
