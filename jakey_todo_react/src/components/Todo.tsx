@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 export const Todo = () => {
   const [todoInput, setTodoInput] = useState<string>('')// input
-  const [inCompleteTodos, setInCompleteTodos] = useState<Array<string>>(["TODOです1", "TODOです2"]); // 未完了TODOアイテム配列
-  const [completeTodos, setCompleteTodos] = useState<Array<string>>(["TODOでした1", "TODOでした2"])// 完了TODOアイテム
+  const [inCompleteTodos, setInCompleteTodos] = useState<Array<string>>([]); // 未完了TODO
+  const [completeTodos, setCompleteTodos] = useState<Array<string>>([])// 完了TODOアイテム
   
   const handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
     setTodoInput(e.target.value);
@@ -33,6 +33,16 @@ export const Todo = () => {
     // 完了したタスクを新しい配列に追加
     setCompleteTodos(updatedCompleteTodos);
   };
+  
+  const backTodo = (index: number) => {
+    // click 完了配列取得 index番目削除 未完了配列取得 index番目追加
+    const temporaryTodos = [...inCompleteTodos]; // 未完了
+    const completeState = [...completeTodos]; // 未完了
+    const [removedTodo] = completeState.splice(index, 1);
+    const newCompleteState = [...temporaryTodos, removedTodo];
+    setCompleteTodos(completeState);
+    setInCompleteTodos(newCompleteState);
+  }
 
   return (
     <React.Fragment>
@@ -63,7 +73,7 @@ export const Todo = () => {
             <li key={todo}>
               <div className="list-row">
               <p className='todo-item'>{todo}</p>
-              <button>戻す</button>
+              <button onClick={() => backTodo(index)}>戻す</button>
               </div>
             </li>
           ))}
