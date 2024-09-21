@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { InputTodo } from "./components/inputTodo";
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState<string>('') // input
@@ -45,10 +46,11 @@ export const Todo = () => {
   }
   return (
     <React.Fragment>
-      <div className="input-area">
-        <input placeholder="TODOを入力" onChange={handleInputChange} />
-        <button onClick={addTask}>追加</button>
-      </div>
+      <InputTodo
+        todoText={todoText}
+        handleInputChange={handleInputChange}
+        addTask={addTask}
+      />
       <div className="incomplete-area">
         <p className='title'>未完了のTODO</p>
         <ul>
