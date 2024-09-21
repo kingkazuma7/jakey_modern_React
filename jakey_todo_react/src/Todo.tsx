@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { InputTodo } from "./components/inputTodo";
 import { IncompleteTasks } from "./components/incompleteTasks";
 import { CompletedTasks } from './components/completedTasks';
+import { ErrorTasks } from './components/errorTasks';
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState<string>('') // input
   const [incompleteTasks, setIncompleteTasks] = useState<Array<string>>([]); // 未完了TODO
   const [completedTasks, setCompletedTasks] = useState<Array<string>>([]) // 完了TODOアイテム
+  const [errorText, setErrorText] = useState<string>('');
 
   const handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
     setTodoText(e.target.value);
@@ -53,6 +55,9 @@ export const Todo = () => {
         handleInputChange={handleInputChange}
         addTask={addTask}
         placeholder={"TODOを入力"}
+      />
+      <ErrorTasks
+        errorText={"登録できる個数は5個までです"}
       />
       <IncompleteTasks
         todos={incompleteTasks}
