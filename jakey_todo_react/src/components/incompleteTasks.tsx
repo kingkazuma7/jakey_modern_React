@@ -13,7 +13,7 @@ export const IncompleteTasks: React.FC<IncompleteTasksProps> = (props) => {
       <ul>
         {todos.map((todo, index) => {
           return (
-            <li key={todo}>
+            <li key={index}>
               <div className="list-row">
                 <p className='todo-item'>{todo}</p>
                 <button onClick={() => completeTask(index)}>完了</button>

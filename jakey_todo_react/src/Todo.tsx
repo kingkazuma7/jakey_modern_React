@@ -8,7 +8,6 @@ export const Todo = () => {
   const [todoText, setTodoText] = useState<string>('') // input
   const [incompleteTasks, setIncompleteTasks] = useState<Array<string>>([]); // 未完了TODO
   const [completedTasks, setCompletedTasks] = useState<Array<string>>([]) // 完了TODOアイテム
-  const [errorText, setErrorText] = useState<string>('');
 
   const handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
     setTodoText(e.target.value);
@@ -48,6 +47,9 @@ export const Todo = () => {
     setCompletedTasks(temporaryCompletedTasks);
     setIncompleteTasks(newIncompleteTasks);
   }
+  
+  const isMaxLimitInCompleteTasks = incompleteTasks.length >= 5;
+  
   return (
     <React.Fragment>
       <InputTodo
@@ -55,10 +57,15 @@ export const Todo = () => {
         handleInputChange={handleInputChange}
         addTask={addTask}
         placeholder={"TODOを入力"}
+        disabled={isMaxLimitInCompleteTasks}
       />
-      <ErrorTasks
-        errorText={"登録できる個数は5個までです"}
-      />
+      {isMaxLimitInCompleteTasks && (
+        <div key="error-message">
+          <ErrorTasks
+            errorText={"登録できる個数は5個までです"}
+          />
+        </div>
+      )}
       <IncompleteTasks
         todos={incompleteTasks}
         completeTask={completeTask}

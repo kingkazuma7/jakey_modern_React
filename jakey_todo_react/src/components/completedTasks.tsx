@@ -11,7 +11,7 @@ export const CompletedTasks: React.FC<completedTasksProps> = (props) => {
       <p className='title'>完了のTODO</p>
       <ul>
         {todos.map((todo, index) => (
-          <li key={todo}>
+          <li key={index}>
             <div className="list-row">
             <p className='todo-item'>{todo}</p>
             <button onClick={() => revertTask(index)}>戻す</button>
