@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { InputTodo } from "./components/inputTodo";
+import { IncompleteTasks } from "./components/incompleteTasks";
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState<string>('') // input
@@ -51,22 +52,11 @@ export const Todo = () => {
         handleInputChange={handleInputChange}
         addTask={addTask}
       />
-      <div className="incomplete-area">
-        <p className='title'>未完了のTODO</p>
-        <ul>
-          {incompleteTasks.map((todo, index) => {
-            return (
-              <li key={todo}>
-                <div className="list-row">
-                  <p className='todo-item'>{todo}</p>
-                  <button onClick={() => completeTask(index)}>完了</button>
-                  <button onClick={() => deleteTask(index)}>削除</button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <IncompleteTasks
+        todos={incompleteTasks}
+        completeTask={completeTask}
+        deleteTask={deleteTask}
+      />
       <div className='complete-area'>
         <p className='title'>完了のTODO</p>
         <ul>
