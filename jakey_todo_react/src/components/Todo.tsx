@@ -1,65 +1,64 @@
 import React, { useState } from 'react'
 
 export const Todo = () => {
-  const [todoInput, setTodoInput] = useState<string>('')// input
-  const [inCompleteTodos, setInCompleteTodos] = useState<Array<string>>([]); // 未完了TODO
-  const [completeTodos, setCompleteTodos] = useState<Array<string>>([])// 完了TODOアイテム
-  
+  const [todoText, setTodoText] = useState<string>('') // input
+  const [incompleteTasks, setIncompleteTasks] = useState<Array<string>>([]); // 未完了TODO
+  const [completedTasks, setCompletedTasks] = useState<Array<string>>([]) // 完了TODOアイテム
+
   const handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-    setTodoInput(e.target.value);
+    setTodoText(e.target.value);
   }
-  const addTodo = () => {
-    if (todoInput === "") return;
-    setInCompleteTodos([...inCompleteTodos, todoInput]);
-    setTodoInput("");
-  }
-  
-  const deleteTodo = (index: number) => {
-    const newTodos = [...inCompleteTodos];
-    newTodos.splice(index, 1);
-    setInCompleteTodos(newTodos);
-  }
-  
-  const completeTodo = (index: number) => {
-    // inCompleteTodosのコピーを作成
-    const temporaryTodos = [...inCompleteTodos];
-    // 指定されたインデックスのタスクを削除
-    const [removedTodo] = temporaryTodos.splice(index, 1); 
-    // 削除されたタスクをcompleteTodosに追加
-    const updatedCompleteTodos = [...completeTodos, removedTodo];
-  
-    // 削除されたタスクを元の配列から削除
-    setInCompleteTodos(temporaryTodos); 
-    // 完了したタスクを新しい配列に追加
-    setCompleteTodos(updatedCompleteTodos);
-  };
-  
-  const backTodo = (index: number) => {
-    // click 完了配列取得 index番目削除 未完了配列取得 index番目追加
-    const temporaryTodos = [...inCompleteTodos]; // 未完了
-    const completeState = [...completeTodos]; // 未完了
-    const [removedTodo] = completeState.splice(index, 1);
-    const newCompleteState = [...temporaryTodos, removedTodo];
-    setCompleteTodos(completeState);
-    setInCompleteTodos(newCompleteState);
+  const addTask = () => {
+    if (todoText === "") return;
+    setIncompleteTasks([...incompleteTasks, todoText]);
+    setTodoText("");
   }
 
+  const deleteTask = (index: number) => {
+    const newIncompleteTasks = [...incompleteTasks];
+    newIncompleteTasks.splice(index, 1);
+    setIncompleteTasks(newIncompleteTasks);
+  }
+
+  const completeTask = (index: number) => {
+    // incompleteTasksのコピーを作成
+    const temporaryIncompleteTasks = [...incompleteTasks];
+    // 指定されたインデックスのタスクを削除
+    const [removedTask] = temporaryIncompleteTasks.splice(index, 1);
+    // 削除されたタスクをcompletedTasksに追加
+    const updatedCompletedTasks = [...completedTasks, removedTask];
+
+    // 削除されたタスクを元の配列から削除
+    setIncompleteTasks(temporaryIncompleteTasks);
+    // 完了したタスクを新しい配列に追加
+    setCompletedTasks(updatedCompletedTasks);
+  };
+
+  const revertTask = (index: number) => {
+    // click 完了配列取得 index番目削除 未完了配列取得 index番目追加
+    const temporaryIncompleteTasks = [...incompleteTasks]; // 未完了
+    const temporaryCompletedTasks = [...completedTasks]; // 未完了
+    const [removedTask] = temporaryCompletedTasks.splice(index, 1);
+    const newIncompleteTasks = [...temporaryIncompleteTasks, removedTask];
+    setCompletedTasks(temporaryCompletedTasks);
+    setIncompleteTasks(newIncompleteTasks);
+  }
   return (
     <React.Fragment>
       <div className="input-area">
         <input placeholder="TODOを入力" onChange={handleInputChange} />
-        <button onClick={addTodo}>追加</button>
+        <button onClick={addTask}>追加</button>
       </div>
       <div className="incomplete-area">
         <p className='title'>未完了のTODO</p>
         <ul>
-          {inCompleteTodos.map((todo, index) => {
+          {incompleteTasks.map((todo, index) => {
             return (
               <li key={todo}>
                 <div className="list-row">
                   <p className='todo-item'>{todo}</p>
-                  <button onClick={() => completeTodo(index)}>完了</button>
-                  <button onClick={() => deleteTodo(index)}>削除</button>
+                  <button onClick={() => completeTask(index)}>完了</button>
+                  <button onClick={() => deleteTask(index)}>削除</button>
                 </div>
               </li>
             );
@@ -69,11 +68,11 @@ export const Todo = () => {
       <div className='complete-area'>
         <p className='title'>完了のTODO</p>
         <ul>
-          {completeTodos.map((todo, index) => (
+          {completedTasks.map((todo, index) => (
             <li key={todo}>
               <div className="list-row">
               <p className='todo-item'>{todo}</p>
-              <button onClick={() => backTodo(index)}>戻す</button>
+              <button onClick={() => revertTask(index)}>戻す</button>
               </div>
             </li>
           ))}
